@@ -9,4 +9,6 @@ public interface IStudentService {
 
     Student saveStudent(Long sid, String name, Gender gender, String email);
     List<Student> getStudents();
+    Student searchStudent(Long id);
+
 }

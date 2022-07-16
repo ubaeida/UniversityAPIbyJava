@@ -35,5 +35,13 @@ public class StudentService implements IStudentService {
         }
         return listOfStudents;
     }
-    //To do: Search Student
+
+    public Student searchStudent(Long id){
+        if  (this.studentRepository.findById(id).isEmpty()){
+            return null;
+        }else {
+            return  this.studentRepository.findById(id).get();
+        }
+    }
+
 }

@@ -1,6 +1,9 @@
 package com.university.demo.models;
 
+import javax.persistence.Id;
+
 public class Course {
+    @Id
     private long id;
     private String name;
     private int maxMark;

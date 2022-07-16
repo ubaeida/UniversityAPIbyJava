@@ -3,6 +3,8 @@ import com.university.demo.models.Student;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 interface StudentRepository extends CrudRepository <Student, Long >{}
 @RestController
 @RequestMapping("/student")
@@ -20,5 +22,9 @@ public class StudentController {
     @PostMapping
     Student addNewStudent(@RequestBody Student student){
         return this.studentRepository.save(student);
+    }
+
+    @GetMapping
+    Optional<Student> getStudent(Long id){return this.studentRepository.findById(id);
     }
 }
