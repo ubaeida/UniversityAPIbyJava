@@ -25,15 +25,15 @@ public class MarkService implements IMarkService {
         this.markValidators = markValidators;
     }
 
-
-    public Mark saveMark(Long sid, Long cid, int stuMark) {
-        Mark mark = new Mark(sid, cid, stuMark);
+    @Override
+    public Mark saveMark(Long studentId, Long courseId, int studentMark) {
+        Mark mark = new Mark(studentId, courseId, studentMark);
 
         markValidators.validate(mark);
 
         return markRepository.save(mark);
     }
-
+    @Override
     public List<Mark> getMarks() {
         Iterable<Mark> marks = markRepository.findAll();
         List<Mark> listOfMarks = new ArrayList<>();
@@ -42,6 +42,5 @@ public class MarkService implements IMarkService {
         }
         return listOfMarks;
     }
-
     // To do: Student GPA, Get course AVG,
 }

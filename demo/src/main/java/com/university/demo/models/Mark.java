@@ -1,23 +1,26 @@
 package com.university.demo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Mark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long studentId;
-    private long courseId;
+    private Long courseId;
     private int studentMark;
 
-    public Mark(long studentId, long courseId, int studentMark) {
+
+    public Mark(Long studentId, Long courseId, int studentMark) {
         this.studentId = studentId;
         this.courseId = courseId;
         this.studentMark = studentMark;
+    }
+
+    public Mark() {
+
     }
 
     public Long getId() {
@@ -28,15 +31,11 @@ public class Mark {
         this.id = id;
     }
 
-    public Mark() {
-
-    }
-
     public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(long studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 
@@ -44,7 +43,7 @@ public class Mark {
         return courseId;
     }
 
-    public void setCourseId(long courseId) {
+    public void setCourseId(Long courseId) {
         this.courseId = courseId;
     }
 
@@ -56,10 +55,10 @@ public class Mark {
         this.studentMark = studentMark;
     }
 
+
     @Override
     public String toString() {
         return "mark{" +
-                "sid=" + studentId +
                 ", cid=" + courseId +
                 ", stuMark=" + studentMark +
                 '}';
