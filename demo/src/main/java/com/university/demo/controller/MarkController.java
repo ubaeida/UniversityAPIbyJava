@@ -2,24 +2,31 @@ package com.university.demo.controller;
 
 import com.university.demo.models.Mark;
 import com.university.demo.persistence.MarkRepository;
+import com.university.demo.services.MarkService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/marks")
 public class MarkController {
-    private final MarkRepository markRepository;
+    private final MarkService markService;
 
-    public MarkController(MarkRepository markRepository) {
-        this.markRepository = markRepository;
+    public MarkController(MarkService markService) {
+        this.markService = markService;
     }
 
     @GetMapping
     Iterable<Mark> getAllMarks() {
-        return markRepository.findAll();
+        return markService.getMarks();
     }
 
     @PostMapping
     Mark addNewMark(@RequestBody Mark mark) {
-        return this.markRepository.save(mark);
+        return this.markService.saveMark(mark);
+    }
+
+    @RequestMapping("{id}/delete")
+    @GetMapping
+    public void deleteMark(@PathVariable Long id){
+        markService.deleteMark(id);
     }
 }

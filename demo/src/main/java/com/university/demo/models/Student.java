@@ -5,15 +5,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotNull
     private String name;
+
+    @Email
     private String email;
 
+    @NotNull
     private Gender gender;
 
 
@@ -27,11 +33,11 @@ public class Student {
     public Student() {
     }
 
-    public long getSid() {
+    public long getId() {
         return id;
     }
 
-    public void setSid(long sid) {
+    public void setId(long sid) {
         this.id = sid;
     }
 

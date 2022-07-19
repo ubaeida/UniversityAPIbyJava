@@ -1,24 +1,30 @@
 package com.university.demo.services;
 
 import com.university.demo.models.Course;
+import com.university.demo.models.Mark;
 import com.university.demo.persistence.CourseRepository;
+import com.university.demo.persistence.MarkRepository;
 import com.university.demo.validators.CourseValidators;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
 
+@Service
 public class CourseService implements ICourseService {
     final CourseRepository courseRepository;
     final CourseValidators courseValidators;
+    final MarkRepository markRepository;
 
-    public CourseService(CourseRepository courseRepository, CourseValidators courseValidators) {
+    public CourseService(CourseRepository courseRepository, CourseValidators courseValidators, MarkRepository markRepository) {
         this.courseRepository = courseRepository;
         this.courseValidators = courseValidators;
+        this.markRepository = markRepository;
     }
 
-    public Course saveCourse(Long id, String name, int maxMark) {
-        Course course = new Course(id, name, maxMark);
+    public Course saveCourse(Course course) {
 
         courseValidators.validate(course);
 
@@ -34,11 +40,19 @@ public class CourseService implements ICourseService {
         return listOfCourses;
     }
 
-    public Course searchCourse(Long id) {
-        if  (this.courseRepository.findById(id).isEmpty()){
-            return null;
-        }else {
-            return  this.courseRepository.findById(id).get();
+    public Optional<Course> searchCourse(Long id) {
+        return this.courseRepository.findById(id);
+    }
+
+    public OptionalDouble courseAVG(Long id) {
+        var marks = markRepository.findAllByCourseId(id);
+        return marks.stream().map(Mark::getStudentMark).mapToDouble(Double::valueOf).average();
+    }
+
+    public void deleteCourse(Long id) {
+        if (courseRepository.existsById(id)) {
+            courseRepository.deleteById(id);
+            markRepository.deleteAllByCourseId(id);
         }
     }
 }

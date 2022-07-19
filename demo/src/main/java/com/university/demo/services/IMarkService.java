@@ -5,6 +5,9 @@ import com.university.demo.models.Mark;
 import java.util.List;
 
 public interface IMarkService {
-    Mark saveMark (Long studentId, Long courseId, int studentMark);
+    Mark saveMark(Mark mark);
+
     List<Mark> getMarks();
+
+    void deleteMark(Long id);
 }

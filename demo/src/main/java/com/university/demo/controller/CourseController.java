@@ -1,34 +1,49 @@
 package com.university.demo.controller;
 
 import com.university.demo.models.Course;
-import com.university.demo.persistence.CourseRepository;
+import com.university.demo.services.ICourseService;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
+import java.util.OptionalDouble;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/courses")
 public class CourseController {
-    private final CourseRepository courseRepository;
+    private final ICourseService courseService;
 
-    public CourseController(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
+    public CourseController(ICourseService courseService) {
+        this.courseService = courseService;
     }
-    @RequestMapping("/course")
+
     @GetMapping
-    Iterable<Course> getAllCourses(){
-        return this.courseRepository.findAll();
+    Iterable<Course> getAllCourses() {
+        return this.courseService.getCourses();
     }
 
-//    @RequestMapping("/course")
     @PostMapping
-    Course addNewCourse(@RequestBody Course course){
-        return this.courseRepository.save(course);
+    Course addNewCourse(@RequestBody @Valid Course course) {
+        return this.courseService.saveCourse(course);
     }
 
-//    @RequestMapping("/course")
+    @RequestMapping("{id}")
     @GetMapping
-    Optional<Course> getCourse(Long id){
-        return this.courseRepository.findById(id);
+    Optional<Course> getCourse(@PathVariable Long id) {
+        return this.courseService.searchCourse(id);
+    }
+
+    @RequestMapping("{id}/avg")
+    @GetMapping
+    OptionalDouble getCourseAVG(@PathVariable Long id) {
+        return this.courseService.courseAVG(id);
+    }
+
+    @RequestMapping("{id}/delete")
+    @GetMapping
+    @Transactional
+    public void deleteStudent(@PathVariable Long id) {
+        courseService.deleteCourse(id);
     }
 }

@@ -4,10 +4,16 @@ import com.university.demo.models.Course;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
 
 public interface ICourseService {
-    Course saveCourse(Long id, String name, int maxMark);
+    Course saveCourse(Course course);
 
     List<Course> getCourses();
-    Course searchCourse(Long id);
+
+    Optional<Course> searchCourse(Long id);
+
+    OptionalDouble courseAVG(Long id);
+
+    void deleteCourse(Long id);
 }

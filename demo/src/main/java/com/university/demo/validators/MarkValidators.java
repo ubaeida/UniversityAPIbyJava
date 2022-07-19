@@ -3,10 +3,12 @@ package com.university.demo.validators;
 import com.university.demo.exception.MyValidationException;
 import com.university.demo.models.Mark;
 import com.university.demo.services.Validator;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class MarkValidators implements Validator<Mark> {
 
     @Override
@@ -26,4 +28,5 @@ public class MarkValidators implements Validator<Mark> {
             throw new MyValidationException(errors);
         }
     }
+
 }

@@ -4,12 +4,14 @@ import com.university.demo.exception.MyValidationException;
 import com.university.demo.models.Gender;
 import com.university.demo.models.Student;
 import com.university.demo.services.Validator;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class StudentValidator implements Validator<Student> {
     @Override
     public void validate(Student student) {
@@ -27,7 +29,7 @@ public class StudentValidator implements Validator<Student> {
         if (student.getName().equals("")) {
             errors.add("Name should not be empty");
         }
-        if (student.getSid() == 0) {
+        if (student.getId() == 0) {
             errors.add("Student Id should not be empty");
         }
         if (!errors.isEmpty()) {
