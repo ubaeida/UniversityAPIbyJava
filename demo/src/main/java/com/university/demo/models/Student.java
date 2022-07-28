@@ -1,12 +1,11 @@
 package com.university.demo.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Student {
@@ -22,6 +21,8 @@ public class Student {
     @NotNull
     private Gender gender;
 
+    @OneToMany(mappedBy = "student")
+    Set<StudentCourse> student_course;
 
     public Student(long id, String name, Gender gender, String email) {
         this.id = id;

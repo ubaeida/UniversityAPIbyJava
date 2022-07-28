@@ -1,12 +1,12 @@
 package com.university.demo.services;
 
-import com.university.demo.exception.MyValidationExceptionHandler;
 import com.university.demo.models.Mark;
 import com.university.demo.models.Student;
 import com.university.demo.persistence.MarkRepository;
 import com.university.demo.persistence.StudentRepository;
 import com.university.demo.validators.StudentValidator;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +51,11 @@ public class StudentService implements IStudentService {
         var marks = markRepository.findAllByStudentId(studentId);
         return marks.stream().map(Mark::getStudentMark).mapToDouble(Double::valueOf).average();
     }
-
+    @Transactional
     public void deleteStudent(Long id) {
-        if(studentRepository.existsById(id)){
+        if (studentRepository.existsById(id)) {
             studentRepository.deleteById(id);
             markRepository.deleteAllByStudentId(id);
-    }
+        }
     }
 }

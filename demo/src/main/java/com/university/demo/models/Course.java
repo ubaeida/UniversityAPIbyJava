@@ -1,12 +1,11 @@
 package com.university.demo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Course {
@@ -19,6 +18,9 @@ public class Course {
     @Min(100)
     @Max(100)
     private int maxMark;
+
+    @OneToMany(mappedBy = "course")
+    Set<StudentCourse> student_course;
 
     public Course(long id, String name, int maxMark) {
         this.id = id;

@@ -6,6 +6,7 @@ import com.university.demo.persistence.CourseRepository;
 import com.university.demo.persistence.MarkRepository;
 import com.university.demo.validators.CourseValidators;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class CourseService implements ICourseService {
         var marks = markRepository.findAllByCourseId(id);
         return marks.stream().map(Mark::getStudentMark).mapToDouble(Double::valueOf).average();
     }
-
+    @Transactional
     public void deleteCourse(Long id) {
         if (courseRepository.existsById(id)) {
             courseRepository.deleteById(id);

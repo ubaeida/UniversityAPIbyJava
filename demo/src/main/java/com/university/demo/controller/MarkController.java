@@ -1,7 +1,6 @@
 package com.university.demo.controller;
 
 import com.university.demo.models.Mark;
-import com.university.demo.persistence.MarkRepository;
 import com.university.demo.services.MarkService;
 import org.springframework.web.bind.annotation.*;
 

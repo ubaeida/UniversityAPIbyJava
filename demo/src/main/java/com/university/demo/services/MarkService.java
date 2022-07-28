@@ -4,18 +4,12 @@ import com.university.demo.models.Mark;
 import com.university.demo.persistence.MarkRepository;
 import com.university.demo.validators.MarkValidators;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//class functionalValidator{
-//    com.models.demo.student student;
-//    com.models.demo.course course;
-//
-//    public List Validate(mark mark){
-//     To be complicated
-//    }
-//}
+
 @Service
 public class MarkService implements IMarkService {
 
@@ -44,6 +38,7 @@ public class MarkService implements IMarkService {
     }
 
     @Override
+    @Transactional
     public void deleteMark(Long id) {
         if (markRepository.existsById(id)) {
             markRepository.deleteById(id);

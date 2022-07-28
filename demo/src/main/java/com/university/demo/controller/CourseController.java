@@ -2,7 +2,6 @@ package com.university.demo.controller;
 
 import com.university.demo.models.Course;
 import com.university.demo.services.ICourseService;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -42,7 +41,6 @@ public class CourseController {
 
     @RequestMapping("{id}/delete")
     @GetMapping
-    @Transactional
     public void deleteStudent(@PathVariable Long id) {
         courseService.deleteCourse(id);
     }
